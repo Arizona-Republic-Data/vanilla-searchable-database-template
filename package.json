@@ -1,0 +1,27 @@
+{
+  "name": "vanilla-searchable-db",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite --host",
+    "build:data": "mkdir -p public/data && ./src/scripts/transform-data.mjs --output public/data/data.json src/data/data.csv",
+    "build": "vite build",
+    "serve": "vite preview",
+    "prepare": "husky install",
+    "stage": "gsutil -m -o 'GSUtil:parallel_process_count=1' cp -z html,css,js,json,ndjson -r ./dist/* gs://azr-data-staging/graphics/vanilla-searchable-db",
+    "deploy": "gsutil -m -o 'GSUtil:parallel_process_count=1' cp -z html,css,js,json,ndjson -r ./dist/* gs://azr-data-public/graphics/vanilla-searchable-db"
+  },
+  "devDependencies": {
+    "danfojs-node": "^0.3.3",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "2.3.2",
+    "vite": "^2.6.4",
+    "yargs": "^17.0.1"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "simple-datatables": "^3.0.2"
+  }
+}

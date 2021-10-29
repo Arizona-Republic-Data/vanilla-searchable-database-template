@@ -1,0 +1,163 @@
+/* App styles */
+
+/* Typography */
+
+@font-face {
+  font-family: "unify-sans";
+  src: url("/fonts/UnifySans_W_Rg.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "unify-sans-bold";
+  src: url("/fonts/UnifySans_W_Bd.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "unify-sans-semi-bold";
+  src: url("/fonts/UnifySans_W_SBd.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "unify-serif";
+  src: url("/fonts/UnifySerif_W_Rg.woff2") format("woff2");
+}
+
+/* Link styles */
+
+/* Add an icon after links that open in a new window */
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
+}
+
+/* Match the link style of articles in the CMS */
+.gnt_ar_b_a {
+  color: #303030;
+  text-decoration: underline;
+  text-decoration-color: #0098fe;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+/* Search and filter inputs */
+
+.dataTable-search .dataTable-input,
+#category-filter {
+  /* Set the font-size to 16px so iOS Safari doesn't Zoom when using inputs */
+  /* See https://www.filamentgroup.com/lab/select-css.html */
+  font-size: 16px;
+}
+
+/* Position search input on the left-hand side instead of the right */
+/* The `div` at the beginning of the selector for .dataTable-search */
+/* is needed to have adequate specificity to override the default styles */
+div.dataTable-top .dataTable-search {
+  float: left;
+  padding: 8px 0px;
+}
+
+#category-filter {
+  padding: 6px 10px;
+  margin: 10px;
+}
+
+/* Table layout */
+
+/* Hide columns at various breakpoints */
+
+/* At narrowest width, show only the id and name columns */
+th:nth-child(3),
+td:nth-child(3),
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5) {
+  display: none;
+}
+
+/* At slightly larger widths, show industry */
+@media screen and (min-width: 425px) {
+  th:nth-child(3),
+  td:nth-child(3) {
+    display: table-cell;
+  }
+}
+
+/*  At wider displays, show remaining columns */
+@media screen and (min-width: 600px) {
+  th:nth-child(4),
+  td:nth-child(4),
+  th:nth-child(5),
+  td:nth-child(5) {
+    display: table-cell;
+  }
+}
+
+/* Items within the table */
+
+.show-detail {
+  font-weight: bold;
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Detail view */
+
+.show-detail-icon,
+.hide-detail-icon {
+  width: 10px;
+  height: 6px;
+}
+
+.hide-detail-icon {
+  /* Change the detail icon from a downward-facing chevron to an */
+  /* upward-facing chevron */
+  transform: rotate(180deg);
+}
+
+/* When a detail view is open, other rows in the table should appear faded */
+tbody.detail-open tr {
+  opacity: 0.2;
+}
+
+tbody.detail-open tr.detail-open,
+tbody.detail-open tr.detail-row {
+  opacity: 1;
+}
+
+/* Styles for elements inside the detail view */
+
+/* @todo Edit these styles to match the HTML you generate inside the */
+/* `SearchableDatabase.renderDetail()` method. */
+
+.detail-field-group {
+  overflow: hidden;
+  clear: both;
+  margin-bottom: 1em;
+}
+
+.detail-field-group dt,
+.detail-field-group dd {
+  float: left;
+}
+
+.detail-row dt {
+  font-weight: bold;
+}
+
+.detail-row dd {
+  /* Eliminate the default left margin for dd elements */
+  margin: 0;
+}
+
+.detail-row dt,
+.detail-row dd {
+  margin-right: 1em;
+}
+
+.detail-row dt:after {
+  content: ":";
+}

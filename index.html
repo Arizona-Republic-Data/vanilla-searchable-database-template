@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla Searchable Database</title>
+
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+
+      // @todo: Change the property ID to UA-166840762-12 when deploying for production
+      ga("create", "UA-166840762-1", {
+        cookieFlags: "SameSite=None; Secure",
+      });
+    </script>
+    <!-- End Google Analytics -->
+
+    <style>
+      @font-face {
+        font-family: "unify-sans";
+        src: url("/fonts/UnifySans_W_Rg.woff2") format("woff2");
+      }
+
+      body {
+        margin: 0;
+        font-family: "unify-sans";
+      }
+
+      #searchable-database-app {
+        margin-bottom: 3em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="searchable-database-app">
+      <div class="select-text">
+        <select id="category-filter" disabled>
+          <option value="" selected>Loading data ...</option>
+        </select>
+      </div>
+      <table id="searchable-database-table"></table>
+    </div>
+    <script src="https://www.gannett-cdn.com/experiments/usatoday/responsive/iframe-resizer/iframe-resizer.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module">
+      import { SearchableDatabase } from "/src/main.js";
+
+      const resizer = new IframeResizer(
+        document.getElementById("searchable-database-app")
+      );
+      const app = new SearchableDatabase(
+        document.getElementById("searchable-database-app"),
+        document.getElementById("searchable-database-table"),
+        document.getElementById("category-filter"),
+        resizer,
+        ga
+      );
+    </script>
+  </body>
+</html>
