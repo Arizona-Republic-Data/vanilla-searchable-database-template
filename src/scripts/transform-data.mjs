@@ -3,25 +3,25 @@
 /**
  * Use Danfo.js to transform source data into the format that will be consumed
  * by JavaScript code to render the searchable database.
- * 
+ *
  * This code is run from the `build:data` npm script defined in `package.json`.
- * 
+ *
  * You could also do the data processing in the data loading/analysis code,
  * but often it's easier to do some final processing in the front-end
  * codebase instead of going back and forth between two people to
  * determine data format.
- * 
+ *
  * You could also use a variety of command-line tools such as csvkit or
  * ndjson-cli to transform the data in an npm script, but after a certain
  * point, that command-line syntax becomes as complex as programming, but
  * is more difficult to read and comment for a wide range of data
  * journalists.
- * 
+ *
  * Using this script allows for straightforward and documented final data
  * transformation prior to visualization.
- * 
+ *
  * Example:
- * 
+ *
  *   transform-data.mjs data/source/data.csv public/data/data.json
  */
 
@@ -31,38 +31,49 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import dfd from "danfojs-node";
 
-
-const argv = yargs(hideBin(process.argv)).positional("inputPath", {
-  describe: "Path to input data file.",
-  type: "string",
-}).options({
-  "output": {
-    alias: "o",
-    describe: "Path to output file with cleaned, transformed data",
-  }
-}).argv;
+const argv = yargs(hideBin(process.argv))
+  .positional("inputPath", {
+    describe: "Path to input data file.",
+    type: "string",
+  })
+  .options({
+    output: {
+      alias: "o",
+      describe: "Path to output file with cleaned, transformed data",
+    },
+  }).argv;
 
 const inputPath = argv._[0];
 
 /**
  * Check whether the configuration variables match the defaults.
- * 
+ *
  * @todo You can remove this function after you're done modifying this script
  *   from the template version.
- * 
+ *
  * @param data {DataFrame} - Input data.
  * @param condition {Series} - Condition used to filter data.
  * @param dropColumns {Array} - Columns to remove.
  * @param renameColumns {Object} - Map of old column name to new column names.
  * @param colsToTransform {Array} - Array of pairs of column names and
  *   functions that will be used to alter or create the column.
+ * @param sortBy {String} - Column name to sort by.
  */
-function hasDefaultConfig(data, condition, dropColumns, renameColumns, colsToTransform) {
+function hasDefaultConfig(
+  data,
+  condition,
+  dropColumns,
+  renameColumns,
+  colsToTransform,
+  sortBy
+) {
   if (condition === null) {
     return false;
   }
 
-  const conditionValues = condition.eq(data["STATUS"].eq("ISSUED")).unique().values;
+  const conditionValues = condition
+    .eq(data["STATUS"].eq("ISSUED"))
+    .unique().values;
   if (conditionValues.length !== 1) {
     return false;
   }
@@ -79,7 +90,7 @@ function hasDefaultConfig(data, condition, dropColumns, renameColumns, colsToTra
     "district",
     "rrffdd_count",
     "REGION",
-    "FORESTNUMB"
+    "FORESTNUMB",
   ];
 
   if (dropColumns.length != defaultDropColumns.length) {
@@ -101,13 +112,17 @@ function hasDefaultConfig(data, condition, dropColumns, renameColumns, colsToTra
     return false;
   }
 
+  if (sortBy !== "ISSUE_DATE") {
+    return false;
+  }
+
   return true;
 }
 
 /**
  * Clean source data and output as JSON
- * @param inputPath Path to file containing source data
- * @param outputPath Path to file containing cleaned, transformed data
+ * @param inputPath - Path to file containing source data.
+ * @param outputPath - Path to file containing cleaned, transformed data.
  */
 async function transformData(inputPath, outputPath) {
   let data = await dfd.read_csv(inputPath);
@@ -117,7 +132,7 @@ async function transformData(inputPath, outputPath) {
   // cleaning tasks on your data.
 
   // If set, this condition will be used to filter your data.
-  // See https://danfo.jsdata.org/api-reference/dataframe/danfo.dataframe.query 
+  // See https://danfo.jsdata.org/api-reference/dataframe/danfo.dataframe.query
   // This happens before column renaming, so use the original column names here.
   // @todo: Update this with a more complex condition if you want to filter
   // your data.
@@ -135,14 +150,13 @@ async function transformData(inputPath, outputPath) {
     "district",
     "rrffdd_count",
     "REGION",
-    "FORESTNUMB"
+    "FORESTNUMB",
   ];
 
   // Map from source column name to new column name
   // @todo: Update this with items where the key is the old column names
   // and values are the new column names.
-  const renameColumns = {
-  };
+  const renameColumns = {};
 
   // The contents of this array should be two-element arrays where the first
   // element is the column name and the second column is the function to run
@@ -150,13 +164,28 @@ async function transformData(inputPath, outputPath) {
   // Since we may have renamed some column names in the previous step, make
   // sure to use the renamed column names.
   // @todo Update this to do any transformations needed in your data.
-  const colsToTransform = [
-  ];
+  const colsToTransform = [];
+
+  // Sort data by this column.
+  // @todo Update this to reflect the column you want to sort in your data
+  // or set to null to use the sort order of the input data.
+  const sortBy = "ISSUE_DATE";
 
   // @todo You can remove this check, as well as the definition of
   // hasDefaultConfig once you modify this script to match your own data.
-  if (hasDefaultConfig(data, condition, dropColumns, renameColumns, colsToTransform)) {
-    console.warn("It appears you haven't changed the data processing script from the template. Any errors might be because you need to update this script to match your data.")
+  if (
+    hasDefaultConfig(
+      data,
+      condition,
+      dropColumns,
+      renameColumns,
+      colsToTransform,
+      sortBy
+    )
+  ) {
+    console.warn(
+      "It appears you haven't changed the data processing script from the template. Any errors might be because you need to update this script to match your data."
+    );
   }
 
   if (condition) {
@@ -166,11 +195,11 @@ async function transformData(inputPath, outputPath) {
   }
 
   data = data.drop({
-    columns: dropColumns
+    columns: dropColumns,
   });
 
   data = data.rename({
-    mapper: renameColumns 
+    mapper: renameColumns,
   });
 
   colsToTransform.forEach(([colName, transform]) => {
@@ -180,6 +209,10 @@ async function transformData(inputPath, outputPath) {
     data = data.drop({ columns: [colName] });
     data.addColumn({ column: colName, value: updated });
   });
+
+  if (sortBy !== null) {
+    data = data.sort_values({ by: sortBy });
+  }
 
   // Standardize column names
   const newColumnNames = data.columns.reduce((nameMap, name) => {
