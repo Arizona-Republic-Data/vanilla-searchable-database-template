@@ -93,6 +93,12 @@ npm run deploy
 
 Note that this will not delete prior versions of the files in `assets`, so you might want to periodically clean up old versions with `gsutil rm` or in the Cloud Console.
 
+To deploy to the staging bucket, `azr-data-staging`, run
+
+```
+npm run stage
+```
+
 ## Methods and techniques
 
 List any new tools, libraries or approaches you used in this project.
