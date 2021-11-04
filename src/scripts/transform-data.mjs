@@ -207,7 +207,7 @@ async function transformData(inputPath, outputPath) {
     // HACK: I don't know how to assign new values to a column so I have to drop
     // and re-add them.
     data = data.drop({ columns: [colName] });
-    data.addColumn({ column: colName, value: updated });
+    data = data.addColumn({ column: colName, values: updated });
   });
 
   if (sortBy !== null) {
