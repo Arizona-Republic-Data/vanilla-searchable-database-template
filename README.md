@@ -42,7 +42,7 @@ List people who requested data, reported, performed data analysis and developed 
 - ✏ `src/main.js`: Main application code. You'll need to edit the properties at the beginning of the `SearchableDatabase` class declaration to configure the table behavior and update the `renderDetail` method so it displays record details in a way that is suitable for your data.
 - ✏ `src/style.css`: Application styles. You'll need to edit this for any custom styling of table or detail elements as well as to configure which columns will be hidden on narrower screens.
 - `src/data/data.csv`: Sample source data file. Either replace this file with your file or edit `package.json` to change the `build:data` npm script to read data from a different filename.
-- `src/scripts/transform-data.mjs`: Script to do final processing on your data and output a JSON file that will be consumed by the application JavaScript.
+- ✏ `src/scripts/transform-data.mjs`: Script to do final processing on your data and output a JSON file that will be consumed by the application JavaScript. You'll want to modify this to do any preprocessing of your data.
 
 ## Technical details
 
