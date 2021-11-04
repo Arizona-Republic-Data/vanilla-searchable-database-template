@@ -63,13 +63,24 @@ div.dataTable-top .dataTable-search {
 
 /* Table layout */
 
-/* Hide columns at various breakpoints */
+/* Show/hide columns at various breakpoints */
 
-/* At narrowest width, show only the id and name columns */
-th:nth-child(3),
-td:nth-child(3),
-th:nth-child(4),
-td:nth-child(4),
+/* @todo Modify these styles to match the number of columns and priority */
+/* in your data. */
+
+/* 
+ * By default, these are the columns shown:
+ *
+ * - [Show/hide Detail Button]
+ * - Authorization ID
+ * - Forest Name
+ * - Contact Name
+ * - Issue Date
+ */
+
+/* At narrowest width, show only the Forest Name and Contact Name columns */
+th:nth-child(2),
+td:nth-child(2),
 th:nth-child(5),
 td:nth-child(5) {
   display: none;
@@ -83,15 +94,22 @@ td:nth-child(5) {
   }
 }
 
-/*  At wider displays, show remaining columns */
+/* At wider displays, show Issue Date */
 @media screen and (min-width: 600px) {
-  th:nth-child(4),
-  td:nth-child(4),
   th:nth-child(5),
   td:nth-child(5) {
     display: table-cell;
   }
 }
+
+/* At widest display, show Authorization ID */
+@media screen and (min-width: 800px) {
+  th:nth-child(2),
+  td:nth-child(2) {
+    display: table-cell;
+  }
+}
+
 
 /* Items within the table */
 
