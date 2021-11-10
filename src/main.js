@@ -364,14 +364,35 @@ export class SearchableDatabase {
    * @returns {String} HTML for record details
    */
   static renderDetail(record) {
-    // HACK: I'd probably declare this as module-level function or a static
+    // HACK: I'd probably declare these as module-level function or a static
     // method of the class in a real app, but I'm declaring it here to avoid
     // having bits lying around the template that are specific to the sample
     // data.
+
+    /**
+     * Parses date in "YYYY-MM-DD" format.
+     *
+     * @param {String} dateStr Date in "YYYY-MM-DD" format.
+     * @returns {Date} Date object corresponding to string.
+     */
+    const parseDate = (dateStr) => {
+      const [year, month, day] = dateStr.substr(0, 10).split("-");
+
+      return new Date(year, month - 1, day);
+    };
+
+    /**
+     * Format date.
+     *
+     * @param {String} dateStr - Date in "YYYY-MM-DD" format.
+     * @returns {String} Date in format like "November 11, 2021".
+     */
     const formatDate = (dateStr) => {
-      // HACK: This isn't the most robust or portable date parsing approach,
-      // but it's fine for an example.
-      const date = new Date(dateStr);
+      if (!dateStr) {
+        return "";
+      }
+
+      const date = parseDate(dateStr);
 
       return date.toLocaleDateString("en-US", {
         year: "numeric",
