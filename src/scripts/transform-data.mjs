@@ -63,7 +63,7 @@ async function transformData(inputPath, outputPath) {
   // Sort data by this column.
   // @todo Update this to reflect the column you want to sort in your data
   // or set to null to use the sort order of the input data.
-  const sortBy = "COL_TO_SORT_BY";
+  const sortBy = "Facility_Name";
 
   if (sortBy !== null) {
     data = data.sort_values({ by: sortBy });
