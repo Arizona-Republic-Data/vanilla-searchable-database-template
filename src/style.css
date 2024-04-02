@@ -31,7 +31,7 @@ a[target="_blank"]::after {
 }
 
 /* Match the link style of articles in the CMS */
-.gnt_ar_b_a {
+a {
   color: #303030;
   text-decoration: underline;
   text-decoration-color: #0098fe;
@@ -41,12 +41,83 @@ a[target="_blank"]::after {
 
 /* Search and filter inputs */
 
+.dataTable-search {
+  width: 100%;
+}
+
+
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: transparent;
+  margin-left: 3px;
+  width: 100%;
+  max-width: 400px;
+}
+
+input{
+  height: 2.5em;
+  width: 100%;
+  max-width: 400px;
+  font: 1em/2.3em UnifySans,sans-serif;
+}
+
 .dataTable-search .dataTable-input,
 #category-filter {
   /* Set the font-size to 16px so iOS Safari doesn't Zoom when using inputs */
   /* See https://www.filamentgroup.com/lab/select-css.html */
   font-size: 16px;
 }
+
+
+/* Styling the selector in the same manner as the one in the salaries */
+/* database */
+select {
+  font-size: 16px;
+  font-weight: 700;
+  color: #444;
+  line-height: 1.3;
+  padding: .6em 1.4em .5em .8em;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px #0000000a;
+  border-radius: .5em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E),linear-gradient(to bottom,#ffffff 0%,#e5e5e5 100%);
+  background-repeat: no-repeat,repeat;
+  background-position: right .7em top 50%,0 0;
+  background-size: .65em auto,100%;
+}
+
+select:hover {
+  border-color: #888;
+}
+
+select:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
+}
+
+select option {
+  font-weight: normal;
+}
+
+.select-text {
+  font-size: 1em;
+  padding: 8px 10px;
+}
+
+
+
 
 /* Position search input on the left-hand side instead of the right */
 /* The `div` at the beginning of the selector for .dataTable-search */
@@ -58,7 +129,7 @@ div.dataTable-top .dataTable-search {
 
 #category-filter {
   padding: 6px 10px;
-  margin: 10px;
+  
 }
 
 /* Table layout */
@@ -68,47 +139,49 @@ div.dataTable-top .dataTable-search {
 /* @todo Modify these styles to match the number of columns and priority */
 /* in your data. */
 
-/* 
+/*
  * By default, these are the columns shown:
  *
  * - [Show/hide Detail Button]
- * - Authorization ID
- * - Forest Name
- * - Contact Name
- * - Issue Date
+ * - col 1 
+ * - col 2 
+ * - col 3 
+ * - col 4 
  */
 
-/* At narrowest width, show only the Forest Name and Contact Name columns */
-th:nth-child(2),
-td:nth-child(2),
+/* At narrowest width, hide the complaint date and  finding cols, */
+/* only revealing the Name and Complaint ID cols */
+th:nth-child(4),
+td:nth-child(4),
 th:nth-child(5),
 td:nth-child(5) {
   display: none;
 }
 
-/* At slightly larger widths, show industry */
+/* At slightly larger widths, show city */
 @media screen and (min-width: 425px) {
-  th:nth-child(3),
-  td:nth-child(3) {
+  th:nth-child(4),
+  td:nth-child(4) {
     display: table-cell;
+  }
+  dt[data-field-name="data-field-name-here"],
+  dd[data-field-name="data-field-name-here"] {
+    display: none;
   }
 }
 
-/* At wider displays, show Issue Date */
+/* At wider displays, show rule violated */
 @media screen and (min-width: 600px) {
   th:nth-child(5),
   td:nth-child(5) {
     display: table-cell;
   }
-}
-
-/* At widest display, show Authorization ID */
-@media screen and (min-width: 800px) {
-  th:nth-child(2),
-  td:nth-child(2) {
-    display: table-cell;
+  dt[data-field-name="data-field-name-here"],
+  dd[data-field-name="data-field-name-here"] {
+    display: none;
   }
 }
+
 
 
 /* Items within the table */
@@ -148,8 +221,6 @@ tbody.detail-open tr.detail-row {
 
 /* Styles for elements inside the detail view */
 
-/* @todo Edit these styles to match the HTML you generate inside the */
-/* `SearchableDatabase.renderDetail()` method. */
 
 .detail-field-group {
   overflow: hidden;
@@ -178,4 +249,16 @@ tbody.detail-open tr.detail-row {
 
 .detail-row dt:after {
   content: ":";
+}
+
+tr:nth-child(even) {
+  background-color: rgba(0, 152, 254, 0.12); /* You can adjust the color as needed */
+}
+
+tr.detail-row:nth-child(even) {
+  background-color: white; /* You can adjust the color as needed */
+}
+
+tr.detail-row:nth-child(odd) {
+  background-color: rgba(0, 152, 254, 0.12); /* You can adjust the color as needed */
 }
