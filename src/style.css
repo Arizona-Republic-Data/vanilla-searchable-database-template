@@ -152,21 +152,22 @@ div.dataTable-top .dataTable-search {
 /* At narrowest width, hide the complaint date and  finding cols, */
 /* only revealing the Name and Complaint ID cols */
 th:nth-child(3),
-td:nth-child(5),
+td:nth-child(3),
 th:nth-child(6),
-td:nth-child(7) {
+td:nth-child(6) {
   display: none;
 }
 
 /* At slightly larger widths, show city */
 @media screen and (min-width: 425px) {
   th:nth-child(3),
-  th:nth-child(5),
+  td:nth-child(3)
+  th:nth-child(6),
   td:nth-child(6) {
     display: table-cell;
   }
-  dt[data-field-name="data-field-name-here"],
-  dd[data-field-name="data-field-name-here"] {
+  dt[data-field-name="name"],
+  dd[data-field-name="name"] {
     display: none;
   }
 }
@@ -177,8 +178,8 @@ td:nth-child(7) {
   td:nth-child(6) {
     display: table-cell;
   }
-  dt[data-field-name="data-field-name-here"],
-  dd[data-field-name="data-field-name-here"] {
+  dt[data-field-name="name"],
+  dd[data-field-name="name"] {
     display: none;
   }
 }
