@@ -65,7 +65,7 @@ export class SearchableDatabase {
     ["annual_pay", "Annual Pay"],
     ["department", "Department"],
     ["overtime", "Overtime"],
-    ["employer", "Employer"]
+    ["employer", "Employer"],
   ]);
   // @todo Set this to a column name if you want that column to define the
   // default sort of the table. Consider pre-sorting the data in the
