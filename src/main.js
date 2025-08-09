@@ -62,13 +62,9 @@ export class SearchableDatabase {
     ["name", "Name"],
     ["title", "Title"],
     ["hire_date", "Hire Date"],
-    ["status", "status"],
     ["annual_pay", "Annual Pay"],
     ["department", "Department"],
     ["overtime", "Overtime"],
-    ["bonuses", "Bonuses"],
-    ["other_pay", "Other pay"],
-    ["caveat", "Caveat"],
     ["employer", "Employer"]
   ]);
   // @todo Set this to a column name if you want that column to define the
@@ -79,7 +75,7 @@ export class SearchableDatabase {
   // to be able to sort. 
   // this can be one or multiple columns. Any column where you feel like being able to look at 
   // results from A-Z (or Z-A) or 1-infinity 
-  sortable = new Set(["annual_pay", "overtime", "bonuses"]);
+  sortable = new Set(["annual_pay", "overtime"]);
    // DON'T NEED TO CHANGE THIS VARIABLE
   // this can be updated  with elements that are pairs of column names and functions to render the columns in the table.
   renderFuncs = new Map([]);
@@ -443,25 +439,13 @@ export class SearchableDatabase {
           <dd data-field-name="hdate">${record.hire_date}</dd>
         </div>
         <div class="detail-field-group">
-          <dt data-field-name="ft_pt">Status</dt>
-          <dd data-field-name="ft_pt">${record.status}</dd>
-        </div> 
-        <div class="detail-field-group">
           <dt data-field-name="ot">Overtime</dt>
           <dd data-field-name="ot">${record.overtime}</dd>
         </div>
         <div class="detail-field-group">
-          <dt data-field-name="bnus">Bonuses</dt>
-          <dd data-field-name="bnus">${record.bonuses}</dd>
+          <dt data-field-name="ot">Department</dt>
+          <dd data-field-name="ot">${record.department}</dd>
         </div>
-        <div class="detail-field-group">
-          <dt data-field-name="opay">Other Pay</dt>
-          <dd data-field-name="opay">${record.other_pay}</dd>
-        </div>
-        <div class="detail-field-group">
-          <dt data-field-name="cvt">Caveat</dt>
-          <dd data-field-name="cvt">${record.caveat}</dd>
-        </div> 
 
         ${usesHTML}
       </dl>
