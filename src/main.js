@@ -86,7 +86,7 @@ export class SearchableDatabase {
   // will cause the filter to be reset when the user has selected a filter.
   resetLabel = "Reset filter";
   // this refenced your dataset. No need to change
-  dataUrl = "src/data/data.csv";
+  dataUrl = "data/data.json";
 
   /**
    * Initialize and render a searchable table.
