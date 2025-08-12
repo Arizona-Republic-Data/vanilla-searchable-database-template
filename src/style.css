@@ -143,16 +143,19 @@ div.dataTable-top .dataTable-search {
  * By default, these are the columns shown:
  *
  * - [Show/hide Detail Button]
- * - col 1 
- * - col 2 
- * - col 3 
- * - col 4 
+ * - col 1 drop down
+ * - col 2 name
+ * - col 3 title
+ * - col 4 annual_pay
+ * - col 5 department
+ * - col 6 overtime
+ * - col 7 employer
  */
 
 /* At narrowest width, hide the complaint date and  finding cols, */
 /* only revealing the Name and Complaint ID cols */
-th:nth-child(3),
-td:nth-child(3),
+th:nth-child(5),
+td:nth-child(5),
 th:nth-child(6),
 td:nth-child(6) {
   display: none;
@@ -160,14 +163,16 @@ td:nth-child(6) {
 
 /* At slightly larger widths, show city */
 @media screen and (min-width: 425px) {
-  th:nth-child(3),
-  td:nth-child(3)
+  th:nth-child(5),
+  td:nth-child(5)
   th:nth-child(6),
   td:nth-child(6) {
     display: table-cell;
   }
-  dt[data-field-name="name"],
-  dd[data-field-name="name"] {
+  dt[data-field-name="overtime"],
+  dd[data-field-name="overtime"],
+  dt[data-field-name="department"],
+  dd[data-field-name="department"] {
     display: none;
   }
 }
@@ -175,11 +180,15 @@ td:nth-child(6) {
 /* At wider displays, show rule violated */
 @media screen and (min-width: 600px) {
   th:nth-child(5),
+  td:nth-child(5)
+  th:nth-child(6),
   td:nth-child(6) {
     display: table-cell;
   }
-  dt[data-field-name="name"],
-  dd[data-field-name="name"] {
+  dt[data-field-name="overtime"],
+  dd[data-field-name="overtime"],
+  dt[data-field-name="department"],
+  dd[data-field-name="department"] {
     display: none;
   }
 }

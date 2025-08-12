@@ -61,7 +61,6 @@ export class SearchableDatabase {
   displayHeadings = new Map([
     ["name", "Name"],
     ["title", "Title"],
-    ["hire_date", "Hire Date"],
     ["annual_pay", "Annual Pay"],
     ["department", "Department"],
     ["overtime", "Overtime"],
@@ -433,20 +432,19 @@ export class SearchableDatabase {
  * you want showing up in the dropdown. 
  */
     return ` 
-      <dl>s
+      <dl>
+        <div class="detail-field-group">
+          <dt data-field-name="department">Department</dt>
+          <dd data-field-name="department">${record.department}</dd>
+        </div>
+        <div class="detail-field-group">
+          <dt data-field-name="overtime">Overtime</dt>
+          <dd data-field-name="overtime">${record.overtime}</dd>
+        </div>
         <div class="detail-field-group">
           <dt data-field-name="hdate">Hire Date</dt>
           <dd data-field-name="hdate">${record.hire_date}</dd>
         </div>
-        <div class="detail-field-group">
-          <dt data-field-name="ot">Overtime</dt>
-          <dd data-field-name="ot">${record.overtime}</dd>
-        </div>
-        <div class="detail-field-group">
-          <dt data-field-name="ot">Department</dt>
-          <dd data-field-name="ot">${record.department}</dd>
-        </div>
-
         ${usesHTML}
       </dl>
     `;
